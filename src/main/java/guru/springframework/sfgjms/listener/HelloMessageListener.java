@@ -32,16 +32,17 @@ public class HelloMessageListener {
     @JmsListener(destination = JmsConfig.QUEUE_SR_NAME)
     public void listenAndReply(@Payload HelloWorldMessage helloWorldMessage,
                        @Headers MessageHeaders headers,
-                       Message message) throws JMSException {
+                       Message jmsMessage,
+                       org.springframework.messaging.Message springMessage) throws JMSException {
 
-        log.info("RECEIVED Message {}\\n\\tWith Headers {}\\n\\tAnd JMS Message {}", helloWorldMessage, headers, message);
+        log.info("RECEIVED Message {}\n\tWith Headers {}\n\tAnd JMS Message {} \n\tAnd Spring Message {}", helloWorldMessage, headers, jmsMessage, springMessage);
 
         HelloWorldMessage payload = HelloWorldMessage.builder()
                 .id(UUID.randomUUID())
                 .message("Good morning World! I'm Replying too")
                 .build();
 
-        jmsTemplate.convertAndSend(message.getJMSReplyTo(), payload);
+        jmsTemplate.convertAndSend(jmsMessage.getJMSReplyTo(), payload);
         log.info("Replay Message with: {}", payload);
     }
 }

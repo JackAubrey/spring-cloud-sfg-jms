@@ -61,12 +61,12 @@
 			<artifactId>spring-boot-starter-artemis</artifactId>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-jakarta-server</artifactId>
 			<version>${artemis.version}</version>
 
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 
